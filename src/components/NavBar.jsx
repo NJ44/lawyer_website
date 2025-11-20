@@ -123,10 +123,10 @@ function NavBar({ className }) {
               />
               <ProductItem
                 title="Patient Reviews"
-                href="#reviews"
+                href="/reviews"
                 src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=280&h=140&fit=crop"
                 description="See what our patients say about their experience"
-                onClick={() => scrollToSection("#reviews")}
+                onClick={() => handleLinkClick("/reviews")}
               />
               <ProductItem
                 title="Location"
@@ -268,10 +268,10 @@ function NavBar({ className }) {
                   Our Practice
                 </a>
                 <a
-                  href="#reviews"
+                  href="/reviews"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleMobileLinkClick(() => scrollToSection("#reviews"));
+                    handleMobileLinkClick(() => handleLinkClick("/reviews"));
                   }}
                   className="block py-2 text-black hover:text-primary transition-colors"
                 >

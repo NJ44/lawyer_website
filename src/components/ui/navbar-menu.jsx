@@ -112,14 +112,14 @@ export const ProductItem = ({
     <a 
       href={href} 
       onClick={handleClick} 
-      className="flex space-x-2 p-3 rounded-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-900 hover:scale-[1.02] group"
+      className="flex space-x-2 p-3 rounded-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-900 group"
     >
       <img
         src={src}
         width={100}
         height={60}
         alt={title}
-        className="flex-shrink-0 rounded-md shadow-2xl object-cover w-20 h-12 transition-transform duration-200 group-hover:scale-105"
+        className="flex-shrink-0 rounded-md shadow-2xl object-cover w-20 h-12"
       />
       <div>
         <h4 className="text-sm font-bold mb-0.5 text-black dark:text-white transition-colors duration-200 group-hover:text-primary">
@@ -145,7 +145,7 @@ export const HoveredLink = ({ children, href, onClick, ...rest }) => {
     <a
       href={href}
       onClick={handleClick}
-      className="text-neutral-700 dark:text-neutral-200 hover:text-black dark:hover:text-white px-3 py-2 rounded-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-900 hover:translate-x-1"
+      className="text-neutral-700 dark:text-neutral-200 hover:text-black dark:hover:text-white px-3 py-2 rounded-lg transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-900"
       {...rest}
     >
       {children}

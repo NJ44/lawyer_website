@@ -13,6 +13,7 @@ import CosmeticWhitening from './pages/CosmeticWhitening'
 import SpecializedCare from './pages/SpecializedCare'
 import Blog from './pages/Blog'
 import OurPractice from './pages/OurPractice'
+import Reviews from './pages/Reviews'
 import RoutineCleaningsExams from './pages/services/RoutineCleaningsExams'
 import FillingsRestorations from './pages/services/FillingsRestorations'
 import RootCanalTherapy from './pages/services/RootCanalTherapy'
@@ -76,6 +77,7 @@ function App() {
           <Route path="/specialized-care" element={<SpecializedCare />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/our-practice" element={<OurPractice />} />
+          <Route path="/reviews" element={<Reviews />} />
           {/* General Dentistry Services */}
           <Route path="/general-dentistry/routine-cleanings-exams" element={<RoutineCleaningsExams />} />
           <Route path="/general-dentistry/fillings-restorations" element={<FillingsRestorations />} />
