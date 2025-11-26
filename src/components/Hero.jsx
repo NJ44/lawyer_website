@@ -9,7 +9,7 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center bg-gradient-to-br from-blue-50 to-white pt-20"
       style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=1920&q=80)',
+        backgroundImage: 'url(https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1920&q=80)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

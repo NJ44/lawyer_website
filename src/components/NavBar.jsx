@@ -43,7 +43,7 @@ function NavBar({ className }) {
   return (
     <div
       className={cn(
-        "fixed top-4 inset-x-0 z-50 px-4",
+        "fixed top-[52px] inset-x-0 z-50 px-4",
         className
       )}
     >
@@ -65,6 +65,25 @@ function NavBar({ className }) {
 
         {/* Desktop Menu items - hidden on mobile */}
         <div className="hidden md:flex items-center space-x-6">
+          <MenuItem setActive={setActive} active={active} item="Locations">
+            <div className="text-sm grid grid-cols-2 gap-6 p-4">
+              {config.LOCATIONS && config.LOCATIONS.length > 0 ? (
+                config.LOCATIONS.map((location, index) => (
+                  <ProductItem
+                    key={index}
+                    title={location.name}
+                    href={`/locations/${location.slug}`}
+                    src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=200&h=120&fit=crop"
+                    description={`${location.address}, ${location.city}`}
+                    onClick={() => handleLinkClick(`/locations/${location.slug}`)}
+                  />
+                ))
+              ) : (
+                <div className="text-sm text-gray-600">No locations available</div>
+              )}
+            </div>
+          </MenuItem>
+
           <MenuItem setActive={setActive} active={active} item="Services">
             <div className="text-sm grid grid-cols-2 gap-6 p-4">
               <ProductItem
@@ -202,7 +221,7 @@ function NavBar({ className }) {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-20 bg-white z-40 overflow-y-auto">
+        <div className="md:hidden fixed inset-0 top-[100px] bg-white z-40 overflow-y-auto">
           <div className="px-4 py-6 space-y-4">
             {/* Services Section */}
             <div>
@@ -288,6 +307,30 @@ function NavBar({ className }) {
               </div>
             </div>
 
+            {/* Locations Section */}
+            <div>
+              <h3 className="text-lg font-semibold text-black mb-3">Locations</h3>
+              <div className="space-y-2">
+                {config.LOCATIONS && config.LOCATIONS.length > 0 ? (
+                  config.LOCATIONS.map((location, index) => (
+                    <a
+                      key={index}
+                      href={`/locations/${location.slug}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleMobileLinkClick(() => handleLinkClick(`/locations/${location.slug}`));
+                      }}
+                      className="block py-2 text-black hover:text-primary transition-colors"
+                    >
+                      {location.name}
+                    </a>
+                  ))
+                ) : (
+                  <div className="text-sm text-gray-600">No locations available</div>
+                )}
+              </div>
+            </div>
+
             {/* Contact Section */}
             <div>
               <h3 className="text-lg font-semibold text-black mb-3">Contact</h3>
@@ -345,7 +388,7 @@ function NavBar({ className }) {
       {/* Mobile Menu Backdrop */}
       {isMobileMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30 top-20"
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30 top-[100px]"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}

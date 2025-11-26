@@ -68,11 +68,12 @@ export function FooterSection() {
   return (
     <footer
       id="contact"
-      className="md:rounded-t-6xl relative w-full max-w-7xl mx-auto flex flex-col items-center justify-center rounded-t-4xl border-t bg-gray-900 bg-[radial-gradient(35%_128px_at_50%_0%,rgba(255,255,255,0.08),transparent)] px-6 py-12 lg:py-16"
+      className="md:rounded-t-6xl relative w-full flex flex-col items-center justify-center rounded-t-4xl border-t bg-gray-900 bg-[radial-gradient(35%_128px_at_50%_0%,rgba(255,255,255,0.08),transparent)] py-12 lg:py-16"
     >
       <div className="bg-white/20 absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" />
 
-      <div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
+      <div className="container mx-auto max-w-7xl px-6 w-full">
+        <div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
         <AnimatedContainer className="space-y-4">
           <Heart className="size-8 text-white" />
           <p className="text-gray-400 mt-8 text-sm md:mt-0">
@@ -111,6 +112,7 @@ export function FooterSection() {
             </AnimatedContainer>
           ))}
         </div>
+      </div>
       </div>
     </footer>
   );

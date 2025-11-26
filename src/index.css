@@ -105,28 +105,98 @@ iframe[src*="retellai.com"] {
   box-shadow: 0 6px 30px rgba(0, 102, 204, 0.4) !important;
 }
 
-/* Style the chat window */
+/* Style the chat window - Made MUCH smaller with shorter height */
 #retell-widget-container iframe,
-[data-retell-widget] iframe {
+[data-retell-widget] iframe,
+iframe[src*="retellai.com"] {
   border-radius: 20px !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
   border: none !important;
   overflow: hidden !important;
-  max-height: 400px !important;
-  height: 400px !important;
-  max-width: 350px !important;
-  width: 350px !important;
+  max-height: 100px !important;
+  height: 100px !important;
+  max-width: 120px !important;
+  width: 120px !important;
+  min-width: 120px !important;
+  min-height: 100px !important;
 }
 
-/* Reduce chat window height on mobile */
+/* Force smaller size on all retell widget containers */
+#retell-widget-container,
+[data-retell-widget] {
+  max-width: 120px !important;
+  width: 120px !important;
+}
+
+#retell-widget-container > *,
+[data-retell-widget] > * {
+  max-width: 120px !important;
+  width: 120px !important;
+  max-height: 100px !important;
+  height: 100px !important;
+}
+
+/* Reduce chat window height on mobile - Much smaller */
 @media (max-width: 768px) {
   #retell-widget-container iframe,
-  [data-retell-widget] iframe {
-    max-height: 350px !important;
-    height: 350px !important;
-    max-width: calc(100vw - 40px) !important;
-    width: calc(100vw - 40px) !important;
+  [data-retell-widget] iframe,
+  iframe[src*="retellai.com"] {
+    max-height: 90px !important;
+    height: 90px !important;
+    max-width: 100px !important;
+    width: 100px !important;
+    min-width: 100px !important;
+    min-height: 90px !important;
   }
+  
+  #retell-widget-container {
+    transform: scale(0.45) !important;
+  }
+}
+
+/* Make the AI agent text input box smaller */
+#retell-widget-container input[type="text"],
+#retell-widget-container input[type="textarea"],
+#retell-widget-container textarea,
+#retell-widget-container [role="textbox"],
+[data-retell-widget] input[type="text"],
+[data-retell-widget] input[type="textarea"],
+[data-retell-widget] textarea,
+[data-retell-widget] [role="textbox"] {
+  font-size: 12px !important;
+  padding: 6px 10px !important;
+  height: 32px !important;
+  max-height: 32px !important;
+  min-height: 32px !important;
+}
+
+/* Additional aggressive selectors for all retell widget elements */
+body iframe[src*="retellai.com"],
+body [id*="retell"],
+body [class*="retell"] iframe,
+body [data-retell] iframe {
+  max-height: 100px !important;
+  height: 100px !important;
+  max-width: 120px !important;
+  width: 120px !important;
+  min-width: 120px !important;
+  min-height: 100px !important;
+}
+
+/* Scale down the entire widget to make everything smaller, especially the text box */
+#retell-widget-container {
+  transform: scale(0.5) !important;
+  transform-origin: bottom right !important;
+}
+
+#retell-widget-container iframe {
+  transform: scale(1) !important;
+}
+
+/* Target iframe content - note: this may need to be set via widget configuration */
+#retell-widget-container iframe *,
+[data-retell-widget] iframe * {
+  font-size: 12px !important;
 }
 
 /* Style popup messages */
@@ -189,9 +259,15 @@ iframe[src*="retellai.com"] {
   }
   
   #retell-widget-container iframe,
-  [data-retell-widget] iframe {
+  [data-retell-widget] iframe,
+  iframe[src*="retellai.com"] {
     border-radius: 16px !important;
-    max-width: calc(100vw - 20px) !important;
+    max-width: 100px !important;
+    width: 100px !important;
+    max-height: 90px !important;
+    height: 90px !important;
+    min-width: 100px !important;
+    min-height: 90px !important;
   }
 }
 

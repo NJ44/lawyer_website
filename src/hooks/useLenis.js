@@ -64,3 +64,26 @@ export function scrollToElement(selector, options = {}) {
   }
 }
 
+// Helper function to scroll to top using Lenis
+export function scrollToTop(immediate = true) {
+  if (lenisInstance) {
+    if (immediate) {
+      // Instant scroll to top for route changes
+      lenisInstance.scrollTo(0, { immediate: true })
+    } else {
+      // Smooth scroll to top
+      lenisInstance.scrollTo(0, {
+        duration: 1.5,
+        immediate: false
+      })
+    }
+  } else {
+    // Fallback to native scroll if Lenis not initialized
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: immediate ? 'auto' : 'smooth'
+    })
+  }
+}
+
