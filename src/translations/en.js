@@ -32,7 +32,7 @@ export const translations = {
   form: {
     getFreeQuote: "Get a Free Quote",
     fullName: "Full name",
-    email: "What's your email?",
+    email: "Email",
     phone: "Phone",
     preferredTime: "Preferred appointment (optional)",
     message: "Message (optional)",

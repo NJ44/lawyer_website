@@ -6,7 +6,6 @@ const LeadForm = () => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
     preferredTime: '',
     message: '',
@@ -14,10 +13,6 @@ const LeadForm = () => {
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null) // 'success' | 'error' | null
-
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  }
 
   const validatePhone = (phone) => {
     return /^[\d\s\-\+\(\)]+$/.test(phone) && phone.replace(/\D/g, '').length >= 10
@@ -37,12 +32,6 @@ const LeadForm = () => {
 
     if (!formData.name.trim()) {
       newErrors.name = t.form.nameRequired
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = t.form.emailRequired
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = t.form.emailInvalid
     }
 
     if (!formData.phone.trim()) {
@@ -68,7 +57,6 @@ const LeadForm = () => {
     try {
       const payload = {
         name: formData.name,
-        email: formData.email,
         phone: formData.phone,
         preferredTime: formData.preferredTime,
         message: formData.message,
@@ -81,7 +69,7 @@ const LeadForm = () => {
         setTimeout(() => {
           setSubmitStatus('success')
           setIsSubmitting(false)
-          setFormData({ name: '', email: '', phone: '', preferredTime: '', message: '' })
+          setFormData({ name: '', phone: '', preferredTime: '', message: '' })
         }, 1000)
         return
       }
@@ -96,7 +84,7 @@ const LeadForm = () => {
 
       if (response.ok) {
         setSubmitStatus('success')
-        setFormData({ name: '', email: '', phone: '', preferredTime: '', message: '' })
+        setFormData({ name: '', phone: '', preferredTime: '', message: '' })
       } else {
         throw new Error('Submission failed')
       }
@@ -149,29 +137,6 @@ const LeadForm = () => {
             {errors.name && (
               <p id="name-error" className="mt-1 text-xs text-red-600" role="alert">
                 {errors.name}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-1">
-              {t.form.email}
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className={`w-full px-2.5 py-1.5 text-xs border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
-              }`}
-              aria-invalid={errors.email ? 'true' : 'false'}
-              aria-describedby={errors.email ? 'email-error' : undefined}
-            />
-            {errors.email && (
-              <p id="email-error" className="mt-1 text-xs text-red-600" role="alert">
-                {errors.email}
               </p>
             )}
           </div>

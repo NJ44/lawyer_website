@@ -73,7 +73,7 @@ function NavBar({ className }) {
     >
       <Menu setActive={setActive} className="w-full">
         {/* Logo - positioned on the left */}
-        <Link to="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+        <Link to="/" className="flex items-center flex-shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
           {config.LOGO_URL && !config.LOGO_URL.startsWith("{{") ? (
             <img
               src={config.LOGO_URL}
@@ -87,8 +87,8 @@ function NavBar({ className }) {
           )}
         </Link>
 
-        {/* Desktop Menu items - hidden on mobile */}
-        <div className="hidden md:flex items-center space-x-6">
+        {/* Desktop Menu items - centered */}
+        <div className="hidden md:flex items-center space-x-6 flex-1 justify-center mx-auto">
           <MenuItem setActive={setActive} active={active} item={t.nav.locations}>
             <div className="text-sm grid grid-cols-2 gap-6 p-4">
               {config.LOCATIONS && config.LOCATIONS.length > 0 ? (
@@ -212,8 +212,7 @@ function NavBar({ className }) {
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium text-sm text-black hover:bg-gray-100 transition-colors"
               aria-label="Language selector"
             >
-              <Languages className="w-4 h-4" />
-              <span>{language === 'en' ? 'English' : 'Español'}</span>
+              <span>{language === 'en' ? 'EN' : 'ES'}</span>
               <ChevronDown className="w-4 h-4" />
             </button>
             {isLanguageDropdownOpen && (
@@ -233,7 +232,7 @@ function NavBar({ className }) {
                       language === 'en' && "bg-gray-50 font-semibold"
                     )}
                   >
-                    English
+                    EN
                   </button>
                   <button
                     onClick={() => {
@@ -245,7 +244,7 @@ function NavBar({ className }) {
                       language === 'es' && "bg-gray-50 font-semibold"
                     )}
                   >
-                    Español
+                    ES
                   </button>
                 </div>
               </div>
@@ -426,8 +425,7 @@ function NavBar({ className }) {
                     language === 'en' ? "border-primary bg-primary/5" : "border-gray-200"
                   )}
                 >
-                  <Languages className="w-5 h-5" />
-                  <span>{t.nav.english}</span>
+                  <span>EN</span>
                 </button>
                 <button
                   onClick={() => {
@@ -439,8 +437,7 @@ function NavBar({ className }) {
                     language === 'es' ? "border-primary bg-primary/5" : "border-gray-200"
                   )}
                 >
-                  <Languages className="w-5 h-5" />
-                  <span>{t.nav.spanish}</span>
+                  <span>ES</span>
                 </button>
               </div>
             </div>

@@ -86,7 +86,7 @@ export const Menu = ({
         // Close dropdown when mouse leaves the entire nav area
         setActive(null);
       }}
-      className={`relative rounded-lg border border-transparent dark:bg-white dark:border-gray-300 bg-white shadow-2xl flex justify-between items-center space-x-3 px-7 py-2 max-w-4xl mx-auto ${className || ''}`}
+      className={`relative rounded-lg border border-transparent dark:bg-white dark:border-gray-300 bg-white shadow-2xl flex items-center space-x-3 px-7 py-2 max-w-4xl mx-auto ${className || ''}`}
       style={{ transform: 'scale(1.1)' }}
     >
       {children}
