@@ -70,46 +70,42 @@ function App() {
     }
   }, [])
 
-  // Resize Retell AI widget to make it smaller and show it after page loads
+  // Show Retell AI widget after page loads
   useEffect(() => {
-    // Function to show widget after page is ready
-    const showWidgetWhenReady = () => {
-      const widgetContainer = document.getElementById('retell-widget-container') || 
-                              document.querySelector('[data-retell-widget]')
-      
-      if (widgetContainer) {
-        // Add class to show widget with transition
-        widgetContainer.classList.add('widget-ready')
+    const showRetellWidget = () => {
+      // Wait for page to be fully loaded
+      const showWidget = () => {
+        const widgetContainer = document.getElementById('retell-widget-container') || 
+                                document.querySelector('[data-retell-widget]')
+        
+        if (widgetContainer) {
+          widgetContainer.classList.add('widget-ready')
+        }
+      }
+
+      // Wait for both DOM and window load
+      if (document.readyState === 'complete') {
+        // Page already loaded, wait a bit for React to render
+        setTimeout(showWidget, 500)
+      } else {
+        // Wait for window load event
+        window.addEventListener('load', () => {
+          setTimeout(showWidget, 500)
+        })
       }
     }
 
-    // Wait for page to fully load before showing widget
-    const handlePageLoad = () => {
-      // Small delay to ensure all content is rendered
-      setTimeout(() => {
-        showWidgetWhenReady()
-      }, 500)
-    }
+    showRetellWidget()
+  }, [])
 
-    // Check if page is already loaded
-    if (document.readyState === 'complete') {
-      handlePageLoad()
-    } else {
-      window.addEventListener('load', handlePageLoad)
-    }
-
+  // Resize Retell AI widget to make it smaller
+  useEffect(() => {
     const resizeRetellWidget = () => {
       // Find the widget container
       const widgetContainer = document.getElementById('retell-widget-container') || 
                               document.querySelector('[data-retell-widget]')
       
       if (widgetContainer) {
-        // Show widget if page is already loaded
-        if (document.readyState === 'complete' && !widgetContainer.classList.contains('widget-ready')) {
-          setTimeout(() => {
-            widgetContainer.classList.add('widget-ready')
-          }, 300)
-        }
         // Find iframe inside widget
         const iframe = widgetContainer.querySelector('iframe[src*="retellai.com"]') ||
                        widgetContainer.querySelector('iframe')
@@ -133,6 +129,11 @@ function App() {
         // Apply aggressive scale transform to make everything much smaller
         widgetContainer.style.transform = 'scale(0.5)'
         widgetContainer.style.transformOrigin = 'bottom right'
+        
+        // Ensure widget-ready class is maintained for visibility
+        if (!widgetContainer.classList.contains('widget-ready')) {
+          widgetContainer.classList.add('widget-ready')
+        }
         
         // Find and resize any direct children
         Array.from(widgetContainer.children).forEach(child => {
@@ -191,7 +192,6 @@ function App() {
     return () => {
       observer.disconnect()
       clearInterval(interval)
-      window.removeEventListener('load', handlePageLoad)
     }
   }, [])
 
