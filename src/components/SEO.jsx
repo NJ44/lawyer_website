@@ -9,7 +9,7 @@ const getPageMetadata = (pathname) => {
 
   const metadataMap = {
     '/': {
-      title: `${baseTitle} — Expert Dental Care in ${city} | General & Cosmetic Dentistry`,
+      title: `${baseTitle}`,
       description: `Professional dental services in ${city}. Comprehensive general dentistry, cosmetic treatments, and specialized care. Same-week appointments available.`
     },
     '/general-dentistry': {

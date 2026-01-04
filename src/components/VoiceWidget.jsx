@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Mic, Phone, X, PhoneOff } from 'lucide-react'
 import { RetellWebClient } from 'retell-client-js-sdk'
 
@@ -6,22 +6,41 @@ const VoiceWidget = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isCalling, setIsCalling] = useState(false)
   const [retellClient, setRetellClient] = useState(null)
+  const [callDuration, setCallDuration] = useState(0)
+  const timerIntervalRef = useRef(null)
 
   const toggleWidget = () => {
     setIsOpen(!isOpen)
   }
 
+  // Format timer as MM:SS
+  const formatDuration = (seconds) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+  }
+
   const handleCall = async () => {
     if (isCalling) {
       // End the call
-      if (retellClient) {
-        try {
-          await retellClient.stop()
-          setRetellClient(null)
-          setIsCalling(false)
-        } catch (error) {
-          console.error('Error ending call:', error)
+      try {
+        if (retellClient && typeof retellClient.stopCall === 'function') {
+          console.log('Stopping call...')
+          await retellClient.stopCall()
+          console.log('Call stopped successfully')
         }
+      } catch (error) {
+        console.error('Error stopping call:', error)
+      } finally {
+        // Clear timer
+        if (timerIntervalRef.current) {
+          clearInterval(timerIntervalRef.current)
+          timerIntervalRef.current = null
+        }
+        setCallDuration(0)
+        // Always cleanup state even if stopCall fails
+        setRetellClient(null)
+        setIsCalling(false)
       }
       return
     }
@@ -80,7 +99,9 @@ const VoiceWidget = () => {
       console.log('Initializing Retell client...')
       const client = new RetellWebClient()
       
-      await client.start({
+      console.log('Client methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(client)))
+      
+      await client.startCall({
         accessToken: access_token,
         callId: call_id,
         sampleRate: 24000,
@@ -90,6 +111,12 @@ const VoiceWidget = () => {
       console.log('Retell client started successfully')
       setRetellClient(client)
 
+      // Start timer
+      setCallDuration(0)
+      timerIntervalRef.current = setInterval(() => {
+        setCallDuration((prev) => prev + 1)
+      }, 1000)
+
       // Handle call events
       client.on('conversationStarted', () => {
         console.log('Conversation started')
@@ -97,12 +124,24 @@ const VoiceWidget = () => {
 
       client.on('conversationEnded', ({ code, reason }) => {
         console.log('Conversation ended', code, reason)
+        // Clear timer
+        if (timerIntervalRef.current) {
+          clearInterval(timerIntervalRef.current)
+          timerIntervalRef.current = null
+        }
+        setCallDuration(0)
         setIsCalling(false)
         setRetellClient(null)
       })
 
       client.on('error', (error) => {
         console.error('Call error:', error)
+        // Clear timer
+        if (timerIntervalRef.current) {
+          clearInterval(timerIntervalRef.current)
+          timerIntervalRef.current = null
+        }
+        setCallDuration(0)
         setIsCalling(false)
         setRetellClient(null)
       })
@@ -121,8 +160,19 @@ const VoiceWidget = () => {
   // Cleanup on unmount
   useEffect(() => {
     return () => {
+      // Clear timer on unmount
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current)
+        timerIntervalRef.current = null
+      }
       if (retellClient) {
-        retellClient.stop().catch(console.error)
+        try {
+          retellClient.stopCall().catch((error) => {
+            console.error('Error in cleanup stopCall:', error)
+          })
+        } catch (error) {
+          console.error('Error in cleanup:', error)
+        }
       }
     }
   }, [retellClient])
@@ -137,7 +187,7 @@ const VoiceWidget = () => {
         }`}
         aria-label="Open voice widget"
       >
-        <Mic className="w-7 h-7" strokeWidth={2} />
+        <Phone className="w-7 h-7" strokeWidth={2} />
       </button>
 
       {/* Voice Widget Panel */}
@@ -186,7 +236,7 @@ const VoiceWidget = () => {
               {/* Status Text */}
               <div className="text-center">
                 <p className="text-gray-700 font-medium text-sm">
-                  {isCalling ? 'Calling...' : 'Tap to speak'}
+                  {isCalling ? formatDuration(callDuration) : 'Tap to speak'}
                 </p>
               </div>
 
