@@ -67,7 +67,7 @@ export function FooterSection() {
   return (
     <footer
       id="contact"
-      className="md:rounded-t-6xl relative w-full flex flex-col items-center justify-center rounded-t-4xl border-t bg-gray-900 bg-[radial-gradient(35%_128px_at_50%_0%,rgba(255,255,255,0.08),transparent)] py-12 lg:py-16"
+      className="md:rounded-t-3xl relative w-full flex flex-col items-center justify-center rounded-t-2xl border-t bg-black bg-[radial-gradient(35%_128px_at_50%_0%,rgba(255,255,255,0.08),transparent)] py-8 lg:py-10"
     >
       <div className="bg-white/20 absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" />
 

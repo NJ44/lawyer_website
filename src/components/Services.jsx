@@ -36,6 +36,15 @@ const Services = () => {
   return (
     <section id="services" className="w-full bg-white py-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto space-y-24">
+        {/* Section Title */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">
+            Services
+          </h2>
+
+        </div>
+
+
         {services.map((service) => (
           <div key={service.index} className="flex justify-center">
             <FeaturedSpotlight

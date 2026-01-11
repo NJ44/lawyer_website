@@ -8,6 +8,8 @@ import { config } from "../config";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTranslation } from "../hooks/useTranslation";
 
+import { useConsultationModal } from "../contexts/ConsultationModalContext";
+
 function NavBar({ className }) {
   const [active, setActive] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,6 +18,7 @@ function NavBar({ className }) {
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
   const { t } = useTranslation();
+  const { openModal } = useConsultationModal();
   const languageDropdownRef = useRef(null);
 
   useEffect(() => {
@@ -92,16 +95,23 @@ function NavBar({ className }) {
           <MenuItem setActive={setActive} active={active} item={t.nav.locations}>
             <div className="text-sm grid grid-cols-2 gap-6 p-4">
               {config.LOCATIONS && config.LOCATIONS.length > 0 ? (
-                config.LOCATIONS.map((location, index) => (
-                  <ProductItem
-                    key={index}
-                    title={location.name}
-                    href={`/locations/${location.slug}`}
-                    src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=200&h=120&fit=crop"
-                    description={`${location.address}, ${location.city}`}
-                    onClick={() => handleLinkClick(`/locations/${location.slug}`)}
-                  />
-                ))
+                config.LOCATIONS.map((location, index) => {
+                  const locationImages = [
+                    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&h=120&fit=crop", // Modern Office 1
+                    "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=200&h=120&fit=crop", // Modern Office 2
+                    "https://images.unsplash.com/photo-1577412647305-991150c7d163?w=200&h=120&fit=crop"  // Modern Office 3
+                  ];
+                  return (
+                    <ProductItem
+                      key={index}
+                      title={location.name}
+                      href={`/locations/${location.slug}`}
+                      src={locationImages[index % locationImages.length]}
+                      description={`${location.address}, ${location.city}`}
+                      onClick={() => handleLinkClick(`/locations/${location.slug}`)}
+                    />
+                  );
+                })
               ) : (
                 <div className="text-sm text-gray-600">No locations available</div>
               )}
@@ -194,7 +204,7 @@ function NavBar({ className }) {
               e.preventDefault();
               handleLinkClick("/contact");
             }}
-            className="cursor-pointer text-black hover:text-primary font-medium text-sm transition-colors duration-200"
+            className="cursor-pointer text-black hover:opacity-70 font-medium text-sm transition-opacity duration-200"
           >
             {t.nav.contact}
           </a>
@@ -202,63 +212,12 @@ function NavBar({ className }) {
 
         {/* Desktop Language Switcher and Book Now Button - hidden on mobile */}
         <div className="hidden md:flex items-center ml-auto gap-3" style={{ transform: 'translateX(20px)' }}>
-          <div
-            ref={languageDropdownRef}
-            className="relative"
-            onMouseEnter={() => setIsLanguageDropdownOpen(true)}
-            onMouseLeave={() => setIsLanguageDropdownOpen(false)}
-          >
-            <button
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-medium text-sm text-black hover:bg-gray-100 transition-colors"
-              aria-label="Language selector"
-            >
-              <span>{language === 'en' ? 'EN' : 'ES'}</span>
-              <ChevronDown className="w-4 h-4" />
-            </button>
-            {isLanguageDropdownOpen && (
-              <div
-                className="absolute top-full right-0 pt-1 bg-transparent"
-                onMouseEnter={() => setIsLanguageDropdownOpen(true)}
-                onMouseLeave={() => setIsLanguageDropdownOpen(false)}
-              >
-                <div className="bg-white rounded-lg shadow-lg border border-gray-200 min-w-[120px] z-50">
-                  <button
-                    onClick={() => {
-                      setLanguage('en');
-                      setIsLanguageDropdownOpen(false);
-                    }}
-                    className={cn(
-                      "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors first:rounded-t-lg last:rounded-b-lg",
-                      language === 'en' && "bg-gray-50 font-semibold"
-                    )}
-                  >
-                    EN
-                  </button>
-                  <button
-                    onClick={() => {
-                      setLanguage('es');
-                      setIsLanguageDropdownOpen(false);
-                    }}
-                    className={cn(
-                      "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors first:rounded-t-lg last:rounded-b-lg",
-                      language === 'es' && "bg-gray-50 font-semibold"
-                    )}
-                  >
-                    ES
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+
           <a
             href="#appointment-form"
             onClick={(e) => {
               e.preventDefault();
-              if (window.location.pathname === '/') {
-                scrollToSection("#appointment-form");
-              } else {
-                window.location.href = '/#appointment-form';
-              }
+              openModal();
             }}
             className="bg-primary text-white px-4 py-1.5 rounded-lg font-semibold hover:bg-opacity-90 transition-colors whitespace-nowrap text-sm"
           >
@@ -297,7 +256,7 @@ function NavBar({ className }) {
                     e.preventDefault();
                     handleMobileLinkClick(() => handleLinkClick("/business-law"));
                   }}
-                  className="block py-2 text-black hover:text-primary transition-colors"
+                  className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
                   Business Law
                 </a>
@@ -307,7 +266,7 @@ function NavBar({ className }) {
                     e.preventDefault();
                     handleMobileLinkClick(() => handleLinkClick("/personal-injury"));
                   }}
-                  className="block py-2 text-black hover:text-primary transition-colors"
+                  className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
                   Personal Injury
                 </a>
@@ -317,7 +276,7 @@ function NavBar({ className }) {
                     e.preventDefault();
                     handleMobileLinkClick(() => handleLinkClick("/criminal-defense"));
                   }}
-                  className="block py-2 text-black hover:text-primary transition-colors"
+                  className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
                   Criminal Defense
                 </a>
@@ -334,7 +293,7 @@ function NavBar({ className }) {
                     e.preventDefault();
                     handleMobileLinkClick(() => scrollToSection("#home"));
                   }}
-                  className="block py-2 text-black hover:text-primary transition-colors"
+                  className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
                   Our Firm
                 </a>
@@ -344,7 +303,7 @@ function NavBar({ className }) {
                     e.preventDefault();
                     handleMobileLinkClick(() => handleLinkClick("/reviews"));
                   }}
-                  className="block py-2 text-black hover:text-primary transition-colors"
+                  className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
                   Client Reviews
                 </a>
@@ -354,7 +313,7 @@ function NavBar({ className }) {
                     e.preventDefault();
                     handleMobileLinkClick(() => scrollToSection("#map"));
                   }}
-                  className="block py-2 text-black hover:text-primary transition-colors"
+                  className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
                   Location
                 </a>
@@ -364,7 +323,7 @@ function NavBar({ className }) {
                     e.preventDefault();
                     handleMobileLinkClick(() => scrollToSection("#faq"));
                   }}
-                  className="block py-2 text-black hover:text-primary transition-colors"
+                  className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
                   FAQ
                 </a>
@@ -384,7 +343,7 @@ function NavBar({ className }) {
                         e.preventDefault();
                         handleMobileLinkClick(() => handleLinkClick(`/locations/${location.slug}`));
                       }}
-                      className="block py-2 text-black hover:text-primary transition-colors"
+                      className="block py-2 text-black hover:opacity-70 transition-opacity"
                     >
                       {location.name}
                     </a>
@@ -405,42 +364,14 @@ function NavBar({ className }) {
                     e.preventDefault();
                     handleMobileLinkClick(() => handleLinkClick("/contact"));
                   }}
-                  className="block py-2 text-black hover:text-primary transition-colors"
+                  className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
                   Contact Us
                 </a>
               </div>
             </div>
 
-            {/* Mobile Language Switcher */}
-            <div className="pt-2">
-              <div className="space-y-2">
-                <button
-                  onClick={() => {
-                    setLanguage('en');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={cn(
-                    "flex items-center gap-2 w-full px-4 py-3 rounded-lg font-medium text-black hover:bg-gray-100 transition-colors border",
-                    language === 'en' ? "border-primary bg-primary/5" : "border-gray-200"
-                  )}
-                >
-                  <span>EN</span>
-                </button>
-                <button
-                  onClick={() => {
-                    setLanguage('es');
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={cn(
-                    "flex items-center gap-2 w-full px-4 py-3 rounded-lg font-medium text-black hover:bg-gray-100 transition-colors border",
-                    language === 'es' ? "border-primary bg-primary/5" : "border-gray-200"
-                  )}
-                >
-                  <span>ES</span>
-                </button>
-              </div>
-            </div>
+
 
             {/* Mobile Book Now Button */}
             <div className="pt-4">
@@ -449,11 +380,7 @@ function NavBar({ className }) {
                 onClick={(e) => {
                   e.preventDefault();
                   handleMobileLinkClick(() => {
-                    if (window.location.pathname === '/') {
-                      scrollToSection("#appointment-form");
-                    } else {
-                      window.location.href = '/#appointment-form';
-                    }
+                    openModal();
                   });
                 }}
                 className="block w-full bg-primary text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-opacity-90 transition-colors"

@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const transition = {
   type: "spring",
@@ -19,8 +19,8 @@ export const MenuItem = ({
   const [isHoveringDropdown, setIsHoveringDropdown] = React.useState(false);
 
   return (
-    <div 
-      onMouseEnter={() => setActive(item)} 
+    <div
+      onMouseEnter={() => setActive(item)}
       onMouseLeave={() => {
         // Only close if not hovering over the dropdown
         if (!isHoveringDropdown) {
@@ -31,46 +31,63 @@ export const MenuItem = ({
     >
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-black hover:text-primary font-medium text-sm transition-colors duration-200"
+        className="cursor-pointer text-black hover:opacity-70 font-medium text-sm transition-opacity duration-200"
       >
         {item}
       </motion.p>
-      {active !== null && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={transition}
-        >
-          {active === item && (
-            <div 
-              className="absolute top-[calc(100%_+_1.5rem)] left-1/2 transform -translate-x-1/2"
-              onMouseEnter={() => {
-                setIsHoveringDropdown(true);
-                setActive(item);
-              }}
-              onMouseLeave={() => {
-                setIsHoveringDropdown(false);
-                setActive(null);
-              }}
-            >
-              {/* Invisible buffer zone to prevent dropdown from closing */}
-              <div className="h-8 w-full absolute -top-8 left-0"></div>
-              <motion.div
-                transition={transition}
-                layoutId="active"
-                className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl pt-6"
+      <AnimatePresence>
+        {active !== null && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.85, y: 10 }}
+            transition={{
+              type: "spring",
+              mass: 1, // Increased from 0.5 to make it slower/heavier
+              damping: 15, // Increased slightly to prevent too much bounce with higher mass
+              stiffness: 80, // Reduced stiffness to make it less snappy
+              restDelta: 0.001,
+              restSpeed: 0.001,
+            }}
+          >
+            {active === item && (
+              <div
+                className="absolute top-[calc(100%_+_1.5rem)] left-1/2 transform -translate-x-1/2"
+                onMouseEnter={() => {
+                  setIsHoveringDropdown(true);
+                  setActive(item);
+                }}
+                onMouseLeave={() => {
+                  setIsHoveringDropdown(false);
+                  setActive(null);
+                }}
               >
+                {/* Invisible buffer zone to prevent dropdown from closing */}
+                <div className="h-8 w-full absolute -top-8 left-0"></div>
                 <motion.div
-                  layout
-                  className="w-max h-full p-4"
+                  transition={{
+                    type: "spring",
+                    mass: 1,
+                    damping: 15,
+                    stiffness: 80,
+                    restDelta: 0.001,
+                    restSpeed: 0.001,
+                  }}
+                  layoutId="active"
+                  className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.2] dark:border-white/[0.2] shadow-xl pt-6"
                 >
-                  {children}
+                  <motion.div
+                    layout
+                    className="w-max h-full p-4"
+                  >
+                    {children}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            </div>
-          )}
-        </motion.div>
-      )}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -109,9 +126,9 @@ export const ProductItem = ({
   };
 
   return (
-    <a 
-      href={href} 
-      onClick={handleClick} 
+    <a
+      href={href}
+      onClick={handleClick}
       className="flex space-x-2 p-3 rounded-lg transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-900 group"
       style={{ transform: 'none' }}
     >
@@ -124,7 +141,7 @@ export const ProductItem = ({
         style={{ transform: 'none' }}
       />
       <div style={{ transform: 'none' }}>
-        <h4 className="text-sm font-bold mb-0.5 text-black dark:text-white transition-colors duration-200 group-hover:text-primary">
+        <h4 className="text-sm font-bold mb-0.5 text-black dark:text-white transition-colors duration-200">
           {title}
         </h4>
         <p className="text-neutral-700 text-xs max-w-[8rem] dark:text-neutral-300 transition-colors duration-200 group-hover:text-neutral-900 dark:group-hover:text-neutral-100">

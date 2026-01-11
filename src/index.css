@@ -5,7 +5,7 @@
 :root {
   --primary-color: #0066CC;
   --accent-color: #0066CC;
-  
+
   /* shadcn/ui style CSS variables */
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
@@ -38,6 +38,7 @@ body.smooth-scroll {
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -64,6 +65,7 @@ html {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -79,6 +81,7 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .animate-fade-in,
   .animate-fade-in-delay {
     animation: none;
@@ -92,22 +95,21 @@ button[class*="bg-primary"] {
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary:hover,
 a[class*="bg-primary"]:hover:not(:disabled),
 button[class*="bg-primary"]:hover:not(:disabled) {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
-  background-color: rgba(0, 102, 204, 0.95) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:active,
 a[class*="bg-primary"]:active:not(:disabled),
 button[class*="bg-primary"]:active:not(:disabled) {
   transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Accent button hover effects */
@@ -188,6 +190,7 @@ button[class*="rounded-lg"] {
 
 /* Disable animations for reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
+
   .btn-primary,
   .btn-accent,
   a[class*="bg-primary"],
@@ -202,7 +205,7 @@ button[class*="rounded-lg"] {
     transform: none !important;
     box-shadow: none !important;
   }
-  
+
   .btn-primary:hover,
   .btn-accent:hover,
   a[class*="bg-primary"]:hover,
@@ -217,4 +220,3 @@ button[class*="rounded-lg"] {
     box-shadow: none !important;
   }
 }
-

@@ -35,6 +35,9 @@ import ViolentCrimes from './pages/services/ViolentCrimes'
 import WhiteCollarCrimes from './pages/services/WhiteCollarCrimes'
 import { useLenis } from './hooks/useLenis'
 import { scrollToTop } from './hooks/useLenis'
+import { ConsultationModalProvider } from './contexts/ConsultationModalContext'
+import ConsultationModal from './components/ConsultationModal'
+
 import { config } from './config'
 
 function HomePage() {
@@ -88,7 +91,7 @@ function App() {
   }, [location.pathname])
 
   return (
-    <>
+    <ConsultationModalProvider>
       <SEO />
       <TopBanner />
       <NavBar />
@@ -123,7 +126,8 @@ function App() {
       </main>
       <Footer />
       <VoiceWidget />
-    </>
+      <ConsultationModal />
+    </ConsultationModalProvider>
   )
 }
 
