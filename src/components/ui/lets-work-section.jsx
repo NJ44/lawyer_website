@@ -1,14 +1,16 @@
-"use client"
-
 import React, { useState } from "react"
 import { ArrowUpRight, Calendar } from "lucide-react"
+import { useTranslation } from "../../hooks/useTranslation"
 
 export function LetsWorkTogether() {
+  const { t, language } = useTranslation()
   const [isHovered, setIsHovered] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [isButtonHovered, setIsButtonHovered] = useState(false)
   const [isQuoteButtonHovered, setIsQuoteButtonHovered] = useState(false)
+
+  const isRtl = language === 'he'
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -24,13 +26,12 @@ export function LetsWorkTogether() {
   }
 
   const handleGetQuote = () => {
-    // Add your quote form/page link here
     window.open("#contact", "_self")
   }
 
   return (
-    <section className="flex min-h-screen items-center justify-center px-6">
-      <div className="relative flex flex-col items-center gap-12">
+    <section className="flex min-h-[50vh] items-center justify-center px-6 py-20">
+      <div className="relative flex flex-col items-center gap-12 w-full max-w-4xl">
         <div
           className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-8 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
@@ -49,7 +50,7 @@ export function LetsWorkTogether() {
                 transitionDelay: "100ms",
               }}
             >
-              Perfect
+              {t.letsWorkTogether.perfect}
             </span>
             <h3
               className="text-3xl font-light tracking-tight text-foreground transition-all duration-500 sm:text-4xl"
@@ -59,7 +60,7 @@ export function LetsWorkTogether() {
                 transitionDelay: "200ms",
               }}
             >
-              Let's meet
+              {t.letsWorkTogether.letsMeet}
             </h3>
           </div>
 
@@ -97,14 +98,14 @@ export function LetsWorkTogether() {
                   color: isButtonHovered ? "var(--background)" : "var(--foreground)",
                 }}
               >
-                Book an appointment
+                {t.letsWorkTogether.bookAppointment}
               </span>
               <ArrowUpRight
                 className="size-4 transition-all duration-500 sm:size-5"
                 strokeWidth={1.5}
                 style={{
                   color: isButtonHovered ? "var(--background)" : "var(--foreground)",
-                  transform: isButtonHovered ? "translate(3px, -3px) scale(1.1)" : "translate(0, 0) scale(1)",
+                  transform: isButtonHovered ? (isRtl ? "translate(-3px, -3px) scale(1.1)" : "translate(3px, -3px) scale(1.1)") : "translate(0, 0) scale(1)",
                 }}
               />
             </button>
@@ -134,14 +135,14 @@ export function LetsWorkTogether() {
                   color: "#ffffff",
                 }}
               >
-                Get a Quote
+                {t.letsWorkTogether.getQuote}
               </span>
               <ArrowUpRight
                 className="size-4 transition-all duration-500 sm:size-5"
                 strokeWidth={1.5}
                 style={{
                   color: "#ffffff",
-                  transform: isQuoteButtonHovered ? "translate(3px, -3px) scale(1.1)" : "translate(0, 0) scale(1)",
+                  transform: isQuoteButtonHovered ? (isRtl ? "translate(-3px, -3px) scale(1.1)" : "translate(3px, -3px) scale(1.1)") : "translate(0, 0) scale(1)",
                 }}
               />
             </button>
@@ -161,7 +162,7 @@ export function LetsWorkTogether() {
             <span className="relative inline-flex size-2 rounded-full bg-blue-500" />
           </span>
           <span className="text-sm font-medium tracking-widest uppercase text-muted-foreground">
-            Book Your Next Visit
+            {t.letsWorkTogether.bookNextVisit}
           </span>
         </div>
 
@@ -189,7 +190,7 @@ export function LetsWorkTogether() {
                     transform: isHovered && !isClicked ? "translateY(-8%)" : "translateY(0)",
                   }}
                 >
-                  Book an
+                  {t.letsWorkTogether.bookAppointment.split(' ')[0]}
                 </span>
               </span>
               <span className="block">
@@ -199,7 +200,7 @@ export function LetsWorkTogether() {
                     transform: isHovered && !isClicked ? "translateY(-8%)" : "translateY(0)",
                   }}
                 >
-                  <span className="text-muted-foreground/60">appointment</span>
+                  <span className="text-muted-foreground/60">{t.letsWorkTogether.bookAppointment.split(' ').slice(1).join(' ')}</span>
                 </span>
               </span>
             </h2>
@@ -219,9 +220,9 @@ export function LetsWorkTogether() {
                 className="size-6 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] sm:size-7"
                 style={{
                   transform: isClicked
-                    ? "translate(100px, -100px) scale(0.5)"
+                    ? (isRtl ? "translate(-100px, -100px) scale(0.5)" : "translate(100px, -100px) scale(0.5)")
                     : isHovered
-                      ? "translate(2px, -2px)"
+                      ? (isRtl ? "translate(-2px, -2px)" : "translate(2px, -2px)")
                       : "translate(0, 0)",
                   opacity: isClicked ? 0 : 1,
                   color: isHovered && !isClicked ? "var(--background)" : "var(--foreground)",
@@ -231,20 +232,20 @@ export function LetsWorkTogether() {
             </div>
           </div>
 
-          <div className="absolute -left-8 top-1/2 -translate-y-1/2 sm:-left-16">
+          <div className={`absolute ${isRtl ? '-right-8 sm:-right-16' : '-left-8 sm:-left-16'} top-1/2 -translate-y-1/2`}>
             <div
               className="h-px w-8 bg-border transition-all duration-500 sm:w-12"
               style={{
-                transform: isClicked ? "scaleX(0) translateX(-20px)" : isHovered ? "scaleX(1.5)" : "scaleX(1)",
+                transform: isClicked ? (isRtl ? "scaleX(0) translateX(20px)" : "scaleX(0) translateX(-20px)") : isHovered ? "scaleX(1.5)" : "scaleX(1)",
                 opacity: isClicked ? 0 : isHovered ? 1 : 0.5,
               }}
             />
           </div>
-          <div className="absolute -right-8 top-1/2 -translate-y-1/2 sm:-right-16">
+          <div className={`absolute ${isRtl ? '-left-8 sm:-left-16' : '-right-8 sm:-right-16'} top-1/2 -translate-y-1/2`}>
             <div
               className="h-px w-8 bg-border transition-all duration-500 sm:w-12"
               style={{
-                transform: isClicked ? "scaleX(0) translateX(20px)" : isHovered ? "scaleX(1.5)" : "scaleX(1)",
+                transform: isClicked ? (isRtl ? "scaleX(0) translateX(-20px)" : "scaleX(0) translateX(20px)") : isHovered ? "scaleX(1.5)" : "scaleX(1)",
                 opacity: isClicked ? 0 : isHovered ? 1 : 0.5,
               }}
             />

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { ArrowUpRight } from "lucide-react"
+import { useTranslation } from "../../hooks/useTranslation"
 
 export function FeaturedSpotlight({
     titlePrefix = "Modern",
@@ -13,6 +14,7 @@ export function FeaturedSpotlight({
     onLearnMore
 }) {
     const [isHovered, setIsHovered] = useState(false)
+    const { t } = useTranslation()
 
     return (
         <div
@@ -107,7 +109,7 @@ export function FeaturedSpotlight({
                             transitionDelay: isHovered ? "100ms" : "0ms",
                         }}
                     >
-                        Learn more
+                        {t.general.learnMore}
                     </span>
                 </div>
             </div>

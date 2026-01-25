@@ -27,10 +27,10 @@ const Hero = () => {
           {/* Text Content */}
           <div className="text-black space-y-3 animate-fade-in">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-black">
-              Experienced Legal Representation for Your Rights
+              {t.hero.title}
             </h1>
             <h2 className="text-lg md:text-xl text-black font-normal max-w-2xl">
-              Proven results, dedicated advocacy, and a team that fights for you.
+              {t.hero.subtitle}
             </h2>
 
             {/* CTAs */}
@@ -53,7 +53,7 @@ const Hero = () => {
                   scrollToElement('#services', { offset: -100 });
                 }}
               >
-                Services
+                {t.hero.services}
               </a>
             </div>
           </div>

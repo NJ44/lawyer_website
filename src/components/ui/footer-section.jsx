@@ -4,44 +4,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon, Heart } from 'lucide-react';
 import { config } from '../../config';
 
-const footerLinks = [
-  {
-    label: 'Services',
-    links: [
-      { title: 'Business Law', href: '/business-law' },
-      { title: 'Personal Injury', href: '/personal-injury' },
-      { title: 'Criminal Defense', href: '/criminal-defense' },
-    ],
-  },
-  {
-    label: 'Company',
-    links: [
-      { title: 'FAQs', href: '#faq' },
-      { title: 'About Us', href: '#home' },
-      { title: 'Privacy Policy', href: '#privacy' },
-      { title: 'Terms of Services', href: '#terms' },
-    ],
-  },
-  {
-    label: 'Resources',
-    links: [
-      { title: 'Client Reviews', href: '#reviews' },
-      { title: 'Location', href: '#contact' },
-      { title: 'Contact Us', href: '#contact' },
-      { title: 'Schedule Consultation', href: '#contact' },
-      { title: 'Blog', href: '/blog' },
-    ],
-  },
-  {
-    label: 'Social Links',
-    links: [
-      { title: 'Facebook', href: '#', icon: FacebookIcon },
-      { title: 'Instagram', href: '#', icon: InstagramIcon },
-      { title: 'Youtube', href: '#', icon: YoutubeIcon },
-      { title: 'LinkedIn', href: '#', icon: LinkedinIcon },
-    ],
-  },
-];
+import { useTranslation } from '../../hooks/useTranslation';
 
 function AnimatedContainer({ className, delay = 0.1, children }) {
   const shouldReduceMotion = useReducedMotion();
@@ -64,6 +27,47 @@ function AnimatedContainer({ className, delay = 0.1, children }) {
 }
 
 export function FooterSection() {
+  const { t } = useTranslation();
+
+  const footerLinks = [
+    {
+      label: t.services.title,
+      links: [
+        { title: t.nav.businessLaw, href: '/business-law' },
+        { title: t.nav.personalInjury, href: '/personal-injury' },
+        { title: t.nav.criminalDefense, href: '/criminal-defense' },
+      ],
+    },
+    {
+      label: t.about.ourPractice,
+      links: [
+        { title: t.about.faq.title, href: '#faq' },
+        { title: t.about.ourPractice, href: '#home' },
+        { title: t.footer.privacyPolicy, href: '#privacy' },
+        { title: t.footer.termsOfService, href: '#terms' },
+      ],
+    },
+    {
+      label: t.footer.quickLinks,
+      links: [
+        { title: t.about.patientReviews, href: '#reviews' },
+        { title: t.about.location, href: '#contact' },
+        { title: t.footer.contactUs, href: '#contact' },
+        { title: t.nav.bookNow, href: '#contact' }, // Schedule Consultation -> Book Now / Free Consultation
+        { title: t.nav.blog, href: '/blog' },
+      ],
+    },
+    {
+      label: t.footer.followUs,
+      links: [
+        { title: 'Facebook', href: '#', icon: FacebookIcon },
+        { title: 'Instagram', href: '#', icon: InstagramIcon },
+        { title: 'Youtube', href: '#', icon: YoutubeIcon },
+        { title: 'LinkedIn', href: '#', icon: LinkedinIcon },
+      ],
+    },
+  ];
+
   return (
     <footer
       id="contact"
@@ -76,7 +80,7 @@ export function FooterSection() {
           <AnimatedContainer className="space-y-4">
             <Heart className="size-8 text-white" />
             <p className="text-gray-400 mt-8 text-sm md:mt-0">
-              © {new Date().getFullYear()} {config.BUSINESS_NAME}. All rights reserved.
+              © {new Date().getFullYear()} {config.BUSINESS_NAME}. {t.footer.rightsReserved}
             </p>
           </AnimatedContainer>
 

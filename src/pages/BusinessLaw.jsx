@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { scrollToElement } from '../hooks/useLenis'
 import { config } from '../config'
+import { useTranslation } from '../hooks/useTranslation'
 
 const BusinessLaw = () => {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen bg-white pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-4">
@@ -117,7 +120,7 @@ const BusinessLaw = () => {
                   to="/business-law/entity-formation"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
@@ -144,7 +147,7 @@ const BusinessLaw = () => {
                   to="/business-law/contract-services"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
@@ -171,7 +174,7 @@ const BusinessLaw = () => {
                   to="/business-law/employment-law"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
@@ -198,7 +201,7 @@ const BusinessLaw = () => {
                   to="/business-law/intellectual-property"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>

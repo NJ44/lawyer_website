@@ -21,7 +21,11 @@ export const translations = {
     ourPractice: "Nuestro Bufete",
     patientReviews: "Reseñas de Clientes",
     location: "Ubicación",
-    faq: "Preguntas Frecuentes",
+    faq: {
+      title: "Preguntas Frecuentes",
+      subtitle: "Obtenga respuestas a preguntas comunes sobre nuestros servicios legales",
+      items: []
+    },
   },
   hero: {
     title: "Representación legal experimentada en",
@@ -50,6 +54,11 @@ export const translations = {
   },
   testimonials: {
     title: "Lo que dicen nuestros clientes",
+  },
+  general: {
+    learnMore: "Más Información",
+    scheduleConsultation: "Programar una Consulta",
+    freeConsultation: "Consulta Gratis",
   },
   footer: {
     contactUs: "Contáctanos",

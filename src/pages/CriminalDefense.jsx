@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { scrollToElement } from '../hooks/useLenis'
 import { config } from '../config'
+import { useTranslation } from '../hooks/useTranslation'
 
 const SpecializedCare = () => {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen bg-white pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="mb-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -22,7 +25,7 @@ const SpecializedCare = () => {
           />
         </motion.div>
 
-        <motion.h1 
+        <motion.h1
           className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -32,7 +35,7 @@ const SpecializedCare = () => {
           Criminal Defense
         </motion.h1>
 
-        <motion.div 
+        <motion.div
           className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,7 +67,7 @@ const SpecializedCare = () => {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="mt-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -84,14 +87,14 @@ const SpecializedCare = () => {
         </motion.div>
 
         {/* Services Section */}
-        <motion.div 
+        <motion.div
           className="mt-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -102,7 +105,7 @@ const SpecializedCare = () => {
           </motion.h2>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Service 1 */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -120,16 +123,16 @@ const SpecializedCare = () => {
                   DUI and DWI charges can have serious consequences, including license suspension, fines, jail time, and a permanent criminal record. Our attorneys have extensive experience defending clients against DUI/DWI charges and understand the complex laws and procedures involved in these cases. We challenge the prosecution's case by examining the validity of traffic stops, the accuracy of field sobriety tests, the reliability of breathalyzer and blood test results, and the procedures used by law enforcement. We work with expert witnesses including toxicologists and accident reconstruction specialists to build strong defenses. Our goal is to minimize the impact of DUI/DWI charges on your life, whether through dismissal of charges, reduction of charges, or negotiation of favorable plea agreements. We also help clients navigate the administrative process of license suspension and work to protect their driving privileges whenever possible.
                 </p>
                 <Link
-                  to="/specialized-care/dental-implants"
+                  to="/criminal-defense/dui-defense"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
 
             {/* Service 2 */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -147,16 +150,16 @@ const SpecializedCare = () => {
                   Drug crime charges can range from simple possession to serious trafficking offenses, and the penalties can be severe, including lengthy prison sentences and substantial fines. Our criminal defense attorneys have extensive experience defending clients against all types of drug charges, including possession, distribution, manufacturing, and trafficking. We understand the complex laws surrounding drug crimes and know how to challenge the prosecution's case effectively. We examine the legality of searches and seizures, challenge the chain of custody of evidence, question the reliability of drug testing, and explore alternative sentencing options including drug court and treatment programs. Our goal is to protect your rights, minimize the consequences of drug charges, and achieve the best possible outcome for your case. We work to have charges dismissed, reduced, or negotiate favorable plea agreements when appropriate, and we're prepared to take your case to trial when necessary to protect your rights and freedom.
                 </p>
                 <Link
-                  to="/specialized-care/emergency-care"
+                  to="/criminal-defense/drug-crimes"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
 
             {/* Service 3 */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -174,16 +177,16 @@ const SpecializedCare = () => {
                   Assault and violent crime charges are among the most serious criminal offenses, carrying severe penalties including lengthy prison sentences. Our criminal defense attorneys have extensive experience defending clients against assault, battery, domestic violence, robbery, and other violent crime charges. We understand that these cases often involve complex issues including self-defense, defense of others, mistaken identity, and false accusations. We conduct thorough investigations, work with expert witnesses, and build strong defenses that challenge the prosecution's case. Our goal is to protect your rights, minimize the consequences of violent crime charges, and achieve the best possible outcome. We work to have charges dismissed or reduced, negotiate favorable plea agreements when appropriate, and we're prepared to take your case to trial when necessary. We understand the serious nature of these charges and the impact they can have on your life, and we fight aggressively to protect your rights and freedom.
                 </p>
                 <Link
-                  to="/specialized-care/orthodontics"
+                  to="/criminal-defense/violent-crimes"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
 
             {/* Service 4 */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -201,10 +204,10 @@ const SpecializedCare = () => {
                   White-collar crimes including fraud, embezzlement, money laundering, and other financial crimes are complex cases that require specialized knowledge and experience. Our criminal defense attorneys have extensive experience defending clients against white-collar crime charges in both state and federal courts. We understand the complex financial and legal issues involved in these cases and know how to effectively challenge the prosecution's evidence and theories. We work with forensic accountants, financial experts, and other professionals to build strong defenses. Our goal is to protect your rights, reputation, and future while working to achieve the best possible outcome. White-collar crime cases often involve extensive investigations and complex evidence, and we're prepared to invest the time and resources necessary to build a strong defense. We work to have charges dismissed, reduced, or negotiate favorable plea agreements, and we're prepared to take your case to trial when necessary to protect your rights and achieve justice.
                 </p>
                 <Link
-                  to="/specialized-care/periodontal-treatment"
+                  to="/criminal-defense/white-collar-crimes"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { config } from '../config';
+import { useTranslation } from '../hooks/useTranslation';
 
 const ReviewModal = ({ isOpen, onClose, onLowRating }) => {
+  const { t } = useTranslation()
   const [selectedRating, setSelectedRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
 
@@ -10,13 +12,13 @@ const ReviewModal = ({ isOpen, onClose, onLowRating }) => {
 
   const handleStarClick = (rating) => {
     setSelectedRating(rating);
-    
+
     if (rating >= 4) {
       // Redirect to Google review
       const reviewUrl = config.GOOGLE_BUSINESS_PROFILE_URL && !config.GOOGLE_BUSINESS_PROFILE_URL.startsWith('{{')
         ? `${config.GOOGLE_BUSINESS_PROFILE_URL.replace(/\/$/, '')}/review`
-        : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(config.BUSINESS_NAME + ' ' + config.CITY)}`;
-      
+        : `https://www.google.com/search?q=${encodeURIComponent(config.BUSINESS_NAME + ' ' + config.CITY + ' Google Review')}`;
+
       window.open(reviewUrl, '_blank', 'noopener,noreferrer');
       onClose();
     } else {
@@ -42,9 +44,8 @@ const ReviewModal = ({ isOpen, onClose, onLowRating }) => {
         aria-label={`${rating} star${rating !== 1 ? 's' : ''}`}
       >
         <svg
-          className={`w-12 h-12 transition-colors ${
-            isActive ? 'text-yellow-400' : 'text-gray-300'
-          }`}
+          className={`w-12 h-12 transition-colors ${isActive ? 'text-yellow-400' : 'text-gray-300'
+            }`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -55,7 +56,7 @@ const ReviewModal = ({ isOpen, onClose, onLowRating }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 md:p-8 relative">
         <button
           onClick={onClose}
@@ -67,22 +68,22 @@ const ReviewModal = ({ isOpen, onClose, onLowRating }) => {
 
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
-            How many stars do you want to give?
+            {t.reviewModal.starsQuestion}
           </h2>
-          
+
           <div className="flex justify-center gap-2 mb-6">
             {Array.from({ length: 5 }, (_, i) => renderStar(i))}
           </div>
 
           {selectedRating > 0 && selectedRating < 4 && (
             <p className="text-sm text-gray-600 mb-4">
-              We'd love to hear how we can improve. Please share your feedback below.
+              {t.reviewModal.improvePlea}
             </p>
           )}
 
           {selectedRating >= 4 && (
             <p className="text-sm text-gray-600">
-              Redirecting you to Google to leave your review...
+              {t.reviewModal.redirecting}
             </p>
           )}
         </div>

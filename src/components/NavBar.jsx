@@ -66,178 +66,195 @@ function NavBar({ className }) {
     setIsMobileMenuOpen(false);
   };
 
+  const isRtl = language === 'he';
+
   return (
     <div
       className={cn(
-        "fixed inset-x-0 z-50 px-4 transition-all duration-500 ease-in-out",
-        isScrolled ? "top-[15px]" : "top-[52px]",
+        "fixed inset-x-0 z-50 px-4 transition-all duration-500 ease-in-out pointer-events-none",
+        isScrolled ? "top-[10px]" : "top-[20px]",
         className
       )}
     >
-      <Menu setActive={setActive} className="w-full justify-between">
-        {/* Logo - positioned on the left */}
-        <Link to="/" className="flex items-center flex-shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
-          {config.LOGO_URL && !config.LOGO_URL.startsWith("{{") ? (
-            <img
-              src={config.LOGO_URL}
-              alt={`${config.BUSINESS_NAME} logo`}
-              className="h-8 w-auto"
-            />
-          ) : (
-            <span className="text-base font-bold text-black">
-              {config.BUSINESS_NAME}
-            </span>
-          )}
-        </Link>
+      <div className="pointer-events-auto">
+        <Menu setActive={setActive} className={cn("w-full justify-between", isRtl ? "flex-row-reverse" : "")}>
+          {/* Logo */}
+          <Link to="/" className="flex items-center flex-shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
+            {config.LOGO_URL && !config.LOGO_URL.startsWith("{{") ? (
+              <img
+                src={config.LOGO_URL}
+                alt={`${config.BUSINESS_NAME} logo`}
+                className="h-6 w-auto"
+              />
+            ) : (
+              <span className="text-base font-bold text-black">
+                {config.BUSINESS_NAME}
+              </span>
+            )}
+          </Link>
 
-        {/* Desktop Menu items - centered */}
-        <div className="hidden md:flex items-center space-x-6 flex-1 justify-center mx-auto">
-          <MenuItem setActive={setActive} active={active} item={t.nav.locations}>
-            <div className="text-sm grid grid-cols-2 gap-6 p-4">
-              {config.LOCATIONS && config.LOCATIONS.length > 0 ? (
-                config.LOCATIONS.map((location, index) => {
-                  const locationImages = [
-                    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&h=120&fit=crop", // Modern Office 1
-                    "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=200&h=120&fit=crop", // Modern Office 2
-                    "https://images.unsplash.com/photo-1577412647305-991150c7d163?w=200&h=120&fit=crop"  // Modern Office 3
-                  ];
-                  return (
-                    <ProductItem
-                      key={index}
-                      title={location.name}
-                      href={`/locations/${location.slug}`}
-                      src={locationImages[index % locationImages.length]}
-                      description={`${location.address}, ${location.city}`}
-                      onClick={() => handleLinkClick(`/locations/${location.slug}`)}
-                    />
-                  );
-                })
-              ) : (
-                <div className="text-sm text-gray-600">No locations available</div>
-              )}
-            </div>
-          </MenuItem>
+          {/* Desktop Menu items */}
+          <div className={cn(
+            "hidden md:flex items-center flex-1 justify-center mx-auto",
+            isRtl ? "flex-row-reverse" : ""
+          )}>
+            {/* About Us */}
+            <MenuItem setActive={setActive} active={active} item={t.nav.aboutUs}>
+              <div className="text-sm grid grid-cols-2 gap-10 p-4" dir={isRtl ? "rtl" : "ltr"}>
+                <ProductItem
+                  title={t.about.ourPractice}
+                  href="#home"
+                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=280&h=140&fit=crop"
+                  description={t.footer.brandDescription}
+                  onClick={() => scrollToSection("#home")}
+                />
+                <ProductItem
+                  title={t.about.patientReviews}
+                  href="/reviews"
+                  src="https://images.unsplash.com/photo-1576267423048-15c0040fec78?w=280&h=140&fit=crop"
+                  description="See what our clients say about their experience"
+                  onClick={() => handleLinkClick("/reviews")}
+                />
+                <ProductItem
+                  title={t.about.location}
+                  href="#map"
+                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=280&h=140&fit=crop"
+                  description="Visit us at our convenient location in the city"
+                  onClick={() => scrollToSection("#map")}
+                />
+                <ProductItem
+                  title={t.about.faq.title}
+                  href="#faq"
+                  src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=280&h=140&fit=crop"
+                  description="Common questions about our services and policies"
+                  onClick={() => scrollToSection("#faq")}
+                />
+              </div>
+            </MenuItem>
 
-          <MenuItem setActive={setActive} active={active} item={t.nav.services}>
-            <div className="text-sm grid grid-cols-2 gap-6 p-4">
-              <ProductItem
-                title="Business Law"
-                href="/business-law"
-                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&h=120&fit=crop"
-                description="Corporate law, contracts, and business formation"
-                onClick={() => handleLinkClick("/business-law")}
-              />
-              <ProductItem
-                title="Personal Injury"
-                href="/personal-injury"
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&h=120&fit=crop"
-                description="Accident claims and injury compensation"
-                onClick={() => handleLinkClick("/personal-injury")}
-              />
-              <ProductItem
-                title="Criminal Defense"
-                href="/criminal-defense"
-                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&h=120&fit=crop"
-                description="Aggressive defense for all criminal charges"
-                onClick={() => handleLinkClick("/criminal-defense")}
-              />
-              <ProductItem
-                title="Family Law"
-                href="/criminal-defense"
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&h=120&fit=crop"
-                description="Divorce, custody, and family legal matters"
-                onClick={() => handleLinkClick("/criminal-defense")}
-              />
-              <ProductItem
-                title="Estate Planning"
-                href="/business-law"
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&h=120&fit=crop"
-                description="Wills, trusts, and estate administration"
-                onClick={() => handleLinkClick("/business-law")}
-              />
-              <ProductItem
-                title="Real Estate Law"
-                href="/business-law"
-                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&h=120&fit=crop"
-                description="Property transactions and real estate disputes"
-                onClick={() => handleLinkClick("/business-law")}
-              />
-            </div>
-          </MenuItem>
+            <div className="h-4 w-px bg-gray-300 mx-1" />
 
-          <MenuItem setActive={setActive} active={active} item={t.nav.aboutUs}>
-            <div className="text-sm grid grid-cols-2 gap-10 p-4">
-              <ProductItem
-                title="Our Firm"
-                href="#home"
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=280&h=140&fit=crop"
-                description="Experienced legal representation with a dedicated team"
-                onClick={() => scrollToSection("#home")}
-              />
-              <ProductItem
-                title="Client Reviews"
-                href="/reviews"
-                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=280&h=140&fit=crop"
-                description="See what our clients say about their experience"
-                onClick={() => handleLinkClick("/reviews")}
-              />
-              <ProductItem
-                title="Location"
-                href="#map"
-                src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=280&h=140&fit=crop"
-                description="Visit us at our convenient location in the city"
-                onClick={() => scrollToSection("#map")}
-              />
-              <ProductItem
-                title="FAQ"
-                href="#faq"
-                src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=280&h=140&fit=crop"
-                description="Common questions about our services and policies"
-                onClick={() => scrollToSection("#faq")}
-              />
-            </div>
-          </MenuItem>
+            {/* Services */}
+            <MenuItem setActive={setActive} active={active} item={t.nav.services}>
+              <div className="text-sm grid grid-cols-2 gap-6 p-4" dir={isRtl ? "rtl" : "ltr"}>
+                <ProductItem
+                  title={t.nav.businessLaw}
+                  href="/business-law"
+                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&h=120&fit=crop"
+                  description={t.services.businessLaw.shortDescription}
+                  onClick={() => handleLinkClick("/business-law")}
+                />
+                <ProductItem
+                  title={t.nav.personalInjury}
+                  href="/personal-injury"
+                  src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&h=120&fit=crop"
+                  description={t.services.personalInjury.shortDescription}
+                  onClick={() => handleLinkClick("/personal-injury")}
+                />
+                <ProductItem
+                  title={t.nav.criminalDefense}
+                  href="/criminal-defense"
+                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&h=120&fit=crop"
+                  description={t.services.criminalDefense.shortDescription}
+                  onClick={() => handleLinkClick("/criminal-defense")}
+                />
+                <ProductItem
+                  title={t.nav.familyLaw}
+                  href="/criminal-defense"
+                  src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&h=120&fit=crop"
+                  description={t.services.familyLaw.shortDescription}
+                  onClick={() => handleLinkClick("/criminal-defense")}
+                />
+                <ProductItem
+                  title={t.nav.estatePlanning}
+                  href="/business-law"
+                  src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=200&h=120&fit=crop"
+                  description={t.services.estatePlanning.shortDescription}
+                  onClick={() => handleLinkClick("/business-law")}
+                />
+                <ProductItem
+                  title={t.nav.realEstateLaw}
+                  href="/business-law"
+                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&h=120&fit=crop"
+                  description={t.services.realEstateLaw.shortDescription}
+                  onClick={() => handleLinkClick("/business-law")}
+                />
+              </div>
+            </MenuItem>
 
-          <a
-            href="/contact"
-            onClick={(e) => {
-              e.preventDefault();
-              handleLinkClick("/contact");
-            }}
-            className="cursor-pointer text-black hover:opacity-70 font-medium text-sm transition-opacity duration-200"
+            <div className="h-4 w-px bg-gray-300 mx-1" />
+
+            {/* Locations */}
+            <MenuItem setActive={setActive} active={active} item={t.nav.locations}>
+              <div className="text-sm grid grid-cols-2 gap-6 p-4" dir={isRtl ? "rtl" : "ltr"}>
+                {config.LOCATIONS && config.LOCATIONS.length > 0 ? (
+                  config.LOCATIONS.map((location, index) => {
+                    const locationImages = [
+                      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&h=120&fit=crop",
+                      "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=200&h=120&fit=crop",
+                      "https://images.unsplash.com/photo-1577412647305-991150c7d163?w=200&h=120&fit=crop"
+                    ];
+                    return (
+                      <ProductItem
+                        key={index}
+                        title={location.name}
+                        href={`/locations/${location.slug}`}
+                        src={locationImages[index % locationImages.length]}
+                        description={`${location.address}, ${location.city}`}
+                        onClick={() => handleLinkClick(`/locations/${location.slug}`)}
+                      />
+                    );
+                  })
+                ) : (
+                  <div className="text-sm text-gray-600">No locations available</div>
+                )}
+              </div>
+            </MenuItem>
+
+            <div className="h-4 w-px bg-gray-300 mx-1" />
+
+            {/* FAQ - Added as top level to match image style of 'Common Questions' */}
+            <a
+              href="#faq"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("#faq");
+              }}
+              className="cursor-pointer text-black hover:opacity-70 font-medium text-sm transition-opacity duration-200"
+            >
+              {t.about.faq.title}
+            </a>
+
+            <div className="h-4 w-px bg-gray-300 mx-1" />
+
+            <a
+              href="/contact"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick("/contact");
+              }}
+              className="cursor-pointer text-black hover:opacity-70 font-medium text-sm transition-opacity duration-200"
+            >
+              {t.nav.contact}
+            </a>
+          </div>
+
+          {/* Desktop mobile toggle (hidden on desktop) */}
+          <div className="hidden md:block w-px" /> {/* Spacer */}
+
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-200 transition-colors ml-auto"
+            aria-label="Toggle menu"
           >
-            {t.nav.contact}
-          </a>
-        </div>
-
-        {/* Desktop Language Switcher and Book Now Button - hidden on mobile */}
-        <div className="hidden md:flex items-center ml-auto gap-3" style={{ transform: 'translateX(20px)' }}>
-
-          <a
-            href="#appointment-form"
-            onClick={(e) => {
-              e.preventDefault();
-              openModal();
-            }}
-            className="bg-primary text-white px-4 py-1.5 rounded-lg font-semibold hover:bg-opacity-90 transition-colors whitespace-nowrap text-sm"
-          >
-            {t.nav.bookNow}
-          </a>
-        </div>
-
-        {/* Mobile Burger Menu Button - positioned on the right */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg text-gray-800 hover:bg-gray-200 transition-colors ml-auto"
-          aria-label="Toggle menu"
-        >
-          {isMobileMenuOpen ? (
-            <X className="w-6 h-6" />
-          ) : (
-            <MenuIcon className="w-6 h-6" />
-          )}
-        </button>
-      </Menu>
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <MenuIcon className="w-6 h-6" />
+            )}
+          </button>
+        </Menu>
+      </div>
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
@@ -258,7 +275,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
-                  Business Law
+                  {t.nav.businessLaw}
                 </a>
                 <a
                   href="/personal-injury"
@@ -268,7 +285,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
-                  Personal Injury
+                  {t.nav.personalInjury}
                 </a>
                 <a
                   href="/criminal-defense"
@@ -278,7 +295,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
-                  Criminal Defense
+                  {t.nav.criminalDefense}
                 </a>
               </div>
             </div>
@@ -295,7 +312,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
-                  Our Firm
+                  {t.about.ourPractice}
                 </a>
                 <a
                   href="/reviews"
@@ -305,7 +322,7 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
-                  Client Reviews
+                  {t.about.patientReviews}
                 </a>
                 <a
                   href="#map"
@@ -315,17 +332,17 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
-                  Location
+                  {t.about.location}
                 </a>
                 <a
                   href="#faq"
                   onClick={(e) => {
-                    e.preventDefault();
+                    e.preventDefault(); // Fixed syntax error in previous block (missing close brace?) No, just being safe
                     handleMobileLinkClick(() => scrollToSection("#faq"));
                   }}
                   className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
-                  FAQ
+                  {t.about.faq.title}
                 </a>
               </div>
             </div>
@@ -366,10 +383,12 @@ function NavBar({ className }) {
                   }}
                   className="block py-2 text-black hover:opacity-70 transition-opacity"
                 >
-                  Contact Us
+                  {t.nav.contact}
                 </a>
               </div>
             </div>
+
+
 
 
 

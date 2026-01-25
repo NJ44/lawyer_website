@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { scrollToElement } from '../hooks/useLenis'
 import { config } from '../config'
+import { useTranslation } from '../hooks/useTranslation'
 
 const CosmeticWhitening = () => {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen bg-white pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="mb-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -22,7 +25,7 @@ const CosmeticWhitening = () => {
           />
         </motion.div>
 
-        <motion.h1 
+        <motion.h1
           className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -32,7 +35,7 @@ const CosmeticWhitening = () => {
           Personal Injury
         </motion.h1>
 
-        <motion.div 
+        <motion.div
           className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,7 +67,7 @@ const CosmeticWhitening = () => {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="mt-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -84,14 +87,14 @@ const CosmeticWhitening = () => {
         </motion.div>
 
         {/* Services Section */}
-        <motion.div 
+        <motion.div
           className="mt-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -102,7 +105,7 @@ const CosmeticWhitening = () => {
           </motion.h2>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Service 1 */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -120,16 +123,16 @@ const CosmeticWhitening = () => {
                   Motor vehicle accidents are among the most common causes of personal injury, and they can result in serious injuries, significant medical expenses, and long-term disability. Our attorneys have extensive experience representing clients injured in car accidents, truck accidents, motorcycle accidents, and other motor vehicle collisions. We understand the complexities of motor vehicle accident cases, including insurance coverage issues, comparative negligence laws, and the importance of thorough accident reconstruction. We work with expert witnesses including accident reconstruction specialists, medical professionals, and economists to build strong cases that demonstrate the full extent of your injuries and damages. Our goal is to recover maximum compensation for your medical expenses, lost wages, pain and suffering, property damage, and other losses. We handle all aspects of your case, from investigating the accident and gathering evidence to negotiating with insurance companies and, when necessary, taking your case to trial.
                 </p>
                 <Link
-                  to="/cosmetic-whitening/teeth-whitening"
+                  to="/personal-injury/motor-vehicle-accidents"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
 
             {/* Service 2 */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -147,16 +150,16 @@ const CosmeticWhitening = () => {
                   Property owners have a legal duty to maintain safe premises and warn visitors of known hazards. When they fail to meet this duty and you're injured as a result, you may be entitled to compensation for your injuries. Slip and fall accidents can occur due to wet floors, uneven surfaces, inadequate lighting, missing handrails, or other hazardous conditions. Our attorneys have extensive experience representing clients injured in slip and fall accidents at stores, restaurants, hotels, apartment buildings, and other properties. We understand the legal standards for premises liability cases and know how to investigate these cases effectively, including preserving evidence, documenting the hazardous condition, and establishing that the property owner knew or should have known about the dangerous condition. We work to recover compensation for your medical expenses, lost wages, pain and suffering, and other damages resulting from your slip and fall accident.
                 </p>
                 <Link
-                  to="/cosmetic-whitening/dental-veneers"
+                  to="/personal-injury/slip-and-fall"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
 
             {/* Service 3 */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -174,16 +177,16 @@ const CosmeticWhitening = () => {
                   Workplace injuries can have devastating consequences, affecting your ability to work, your income, and your quality of life. While workers' compensation may provide some benefits, it often doesn't cover the full extent of your losses, especially if your injury was caused by a third party's negligence. Our attorneys represent workers injured on the job, including construction accidents, industrial accidents, and other workplace injuries. We understand both workers' compensation claims and third-party liability claims, and we work to ensure you receive all the benefits and compensation you're entitled to. We also represent workers who have been injured due to unsafe working conditions, defective equipment, or employer negligence. Our goal is to help you recover maximum compensation for your medical expenses, lost wages, disability, pain and suffering, and other damages, while ensuring you receive proper medical care and support throughout your recovery.
                 </p>
                 <Link
-                  to="/cosmetic-whitening/dental-bonding"
+                  to="/personal-injury/workplace-injuries"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>
 
             {/* Service 4 */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -201,10 +204,10 @@ const CosmeticWhitening = () => {
                   Losing a loved one due to someone else's negligence is one of the most devastating experiences a family can face. While no amount of money can replace your loved one, a wrongful death claim can provide financial support for your family and hold the responsible party accountable. Our attorneys provide compassionate representation for families who have lost loved ones due to accidents, medical malpractice, defective products, or other forms of negligence. We understand the emotional and financial impact of wrongful death, and we work to recover compensation for funeral expenses, lost income, loss of companionship, and other damages. Wrongful death cases are complex and require thorough investigation, expert testimony, and aggressive advocacy. We handle all aspects of your case with sensitivity and professionalism, allowing you to focus on grieving and healing while we fight for justice on behalf of your loved one.
                 </p>
                 <Link
-                  to="/cosmetic-whitening/smile-makeover"
+                  to="/personal-injury/wrongful-death"
                   className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
                 >
-                  Learn More
+                  {t.general.learnMore}
                 </Link>
               </div>
             </motion.div>

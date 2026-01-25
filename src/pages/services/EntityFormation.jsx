@@ -4,8 +4,12 @@ import { motion } from 'framer-motion'
 import { InteractiveHoverButton } from '../../components/ui/interactive-hover-button'
 import { scrollToElement } from '../../hooks/useLenis'
 import { config } from '../../config'
+import { useTranslation } from '../../hooks/useTranslation'
 
 const EntityFormation = () => {
+  const { t } = useTranslation();
+  const content = t.servicesContent.entityFormation;
+
   return (
     <div className="min-h-screen bg-white pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-4">
@@ -18,7 +22,7 @@ const EntityFormation = () => {
         >
           <img
             src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&h=600&fit=crop"
-            alt="Entity Formation"
+            alt={content.title}
             className="w-full h-64 md:h-96 object-cover rounded-2xl shadow-lg"
           />
         </motion.div>
@@ -30,7 +34,7 @@ const EntityFormation = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Entity Formation
+          {content.title}
         </motion.h1>
 
         <motion.div
@@ -40,21 +44,11 @@ const EntityFormation = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <p className="mb-4">
-            Choosing the right business structure is one of the most important decisions you'll make as a business owner. The entity type you choose will affect your personal liability, tax obligations, operational flexibility, and ability to raise capital. Our attorneys guide clients through the process of forming corporations, limited liability companies (LLCs), partnerships, and other business entities, ensuring proper documentation and compliance with state and federal regulations.
-          </p>
-
-          <p className="mb-4">
-            We help you understand the advantages and disadvantages of each structure, including liability protection, tax implications, and operational flexibility. Our comprehensive entity formation services include preparation of all necessary documents, filing with appropriate state agencies, obtaining required licenses and permits, and establishing proper corporate governance structures.
-          </p>
-
-          <p className="mb-4">
-            We work closely with you to select the entity type that best fits your business goals, whether you're a sole proprietor looking to limit personal liability or a growing company planning for future expansion. Proper entity formation from the start can save you significant time and money down the road and protect your personal assets from business liabilities.
-          </p>
-
-          <p className="mb-6">
-            Contact us today to schedule a consultation and learn how we can help you form the right business entity for your needs. We'll guide you through every step of the process and ensure your business is properly structured from the beginning.
-          </p>
+          {content.content.map((paragraph, index) => (
+            <p key={index} className="mb-4">
+              {paragraph.replace('{{businessName}}', config.BUSINESS_NAME)}
+            </p>
+          ))}
         </motion.div>
 
         <motion.div
@@ -72,13 +66,13 @@ const EntityFormation = () => {
             }}
             className="inline-block bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors"
           >
-            Schedule a Consultation
+            {t.nav.bookNow}
           </a>
           <Link
             to="/business-law"
             className="inline-block bg-gray-200 text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors"
           >
-            ← Back to Business Law
+            ← {content.backLink}
           </Link>
         </motion.div>
       </div>
